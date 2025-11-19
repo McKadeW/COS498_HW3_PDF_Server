@@ -1,8 +1,7 @@
 const express = require('express');
 const hbs = require('hbs');
 const path = require('path');
-const cookieParser = require('cookie-parser');
-const session = require('express-session');
+const router = require("./modules/routes.js");
 const app = express();
 const PORT = process.env.PORT || 3012;
 
@@ -10,22 +9,12 @@ const PORT = process.env.PORT || 3012;
 app.set('view engine', 'hbs');
 app.set('views', path.join(__dirname, 'views'));
 
-// Register partials directory
-hbs.registerPartials(path.join(__dirname, 'views', 'partials'));
-
 // Middleware
 app.use(express.urlencoded({ extended: true }));
-app.use(express.json());
-app.use(cookieParser());
 app.use(express.static('public'));
 
-// Static file serving, nginx will proxy traffic here
-app.use(express.static('public'));
-
-// Home page
-app.get('/', (req, res) => {
-  return res.render('home');
-});
+// Forward everything to the router object
+app.use("/", router);
 
 // Start server
 app.listen(PORT, '0.0.0.0', () => {
