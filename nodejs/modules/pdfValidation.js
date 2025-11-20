@@ -8,12 +8,12 @@ function validatePdfExists(pdfDirectory, file){
 	// Create the file path to check
 	const filePath = path.join(pdfDirectory, file);
 
+	// See if it exists on path
 	if (fs.existsSync(filePath)){
-		return 200;
+		return 1;
 	}
-	else{
-		return 404;
-	}
+
+	return 0;
 }
 
 module.exports = {

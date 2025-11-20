@@ -14,8 +14,8 @@ function pdfMetadataList(fileDirectory, metadataPath){
 
 	// Find all of the PDFs
 	for (let i = 0; i < files.length; i++){
-		if (files[i].endwith(".pdf")){
-			pdf.push(files[i]);
+		if (files[i].endsWith(".pdf")){
+			pdfs.push(files[i]);
 		}
 	}
 	
@@ -31,6 +31,7 @@ function pdfMetadataList(fileDirectory, metadataPath){
 		// Check to see if the pdf has metadata
 		if (parsedMetadata[pdfs[j]]){
 			pdfWithData.push({
+				pdfName: pdfs[j],
 				pdfTitle: parsedMetadata[pdfs[j]].title, 
 				pdfDescription: parsedMetadata[pdfs[j]].description
 			});
