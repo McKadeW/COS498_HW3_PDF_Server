@@ -42,7 +42,8 @@ Once the containers are running, navigate to http://localhost:5001 to view the a
 
 Now go to the SSL tab and select your domain from the SSL Certificate dropdown, and set Force SSL to True. Save.
 
-- **Step 3 - View HTTPS Site"**
+- **Step 3 - View HTTPS Site**
+
 Now you should be able to naviagte to your domain name and see the application!
 
 
