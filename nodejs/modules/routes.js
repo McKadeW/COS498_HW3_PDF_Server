@@ -1,26 +1,33 @@
 // A module to handle the application's routing
+// This also imports the validation module so that it can handle
+// the route that will download the PDF files (when selected by user)
 
 const express = require('express');
 const path = require('path');
 const fs = require('fs');
 
+// Import modules and get the directory holding the PDFs
 const { validatePdfExists } = require('./pdfValidation.js');
 const PDF_Dir = path.join(__dirname, '..', 'pdfs');
 
 // Create the router
 const router = express.Router();
 
-// Home page
+// Home page (send it the # of PDFs to display)
 router.get('/', (req, res) => {
-	return res.render('home', req.pdfData);
+	return res.render('home', {
+		PDF_Count: req.pdfData.pdfCount
+	});
 });
 
-// Page to display PDFs
+// Page to display PDFs (send it the PDF data to display PDFs & metadata)
 router.get('/pdfs', (req, res) => {
-	return res.render('pdfs', req.pdfData);
+	return res.render('pdfs', {
+		PDF_Content: req.pdfData.pdfs
+	});
 });
 
-// The route for PDF download, verified by module
+// The route for PDF download, uses validation module before serving
 router.get('/pdfs/:filename', (req, res) => {
         const fileName = req.params.filename;
 
@@ -43,7 +50,7 @@ router.get('/pdfs/:filename', (req, res) => {
         // Tell client the file size
         res.setHeader('Content-Length', fileSize);
         // Show the client the file name
-        res.setHeader('Content-Disposition', `inline; filename="${fileName}"`);
+        res.setHeader('Content-Disposition', `attachment; filename="${fileName}"`);
 
         // Send the file
         res.sendFile(filePath);

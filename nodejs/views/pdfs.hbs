@@ -1,28 +1,29 @@
 <!DOCTYPE html>
 <html>
 <head>
-    <title>PDF Library</title>
+    <title>Available PDFs</title>
     <link rel="stylesheet" href="/styles.css">
 </head>
 <body>
     <header>
         <h1>Secure PDF Server</h1>
     </header>
-    <main class="pdf-container">
-        <a href="/" class="back-link">← Back to Home</a>
-        
-        <h2>Available PDF Documents</h2>
-        
-        {{#each pdfs}}
-        <div class="pdf-item">
-            <h3>{{this.pdfTitle}}</h3>
-            <p>{{this.pdfDescription}}</p>
-            <a href="/pdfs/{{this.filename}}" target="_blank" class="btn">View PDF</a>
-        </div>
-        {{/each}}
+    <main class="home-container">
+	<section class="intro centered-section">
+		<a href="/" class="back-link">← Back to Home</a><br>
+        	<h2>Available PDF Documents</h2>
+	</section>
+
+	<div class="pdf-list">
+        	{{#each PDF_Content}}
+        	<div class="pdf-card">
+            		<h3>{{this.pdfTitle}}</h3>
+            		<p>{{this.pdfDescription}}</p>
+            		<a href="/pdfs/{{this.pdfName}}" class="btn primary-btn">Download PDF</a>
+        	</div>
+        	{{/each}}
     </main>
     <footer>
-        <p>COS498 - Secure PDF Server</p>
+	<p>COS498 - Secure PDF Server</p>
     </footer>
-</body>
 </html>
